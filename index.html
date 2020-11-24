@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+<!--Snapshot link-->
+  <!-- <script  type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script> -->
+
+  <script defer src="face-api.min.js"></script> 
+ 
+   <script defer src="Script/script.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: aqua;
+    }
+
+    canvas {
+      position: absolute;
+    }
+
+    button {
+      position: relative;
+      top: 25rem;
+      right: 25rem;
+    }
+  </style>
+ 
 </head>
 <body>
-    <h1>Hello world</h1>
+  <video id="video" width="720" height="560" autoplay muted></video>
+  <!-- <canvas id="canvas" class="d-none"></canvas> -->
+ <!--for the snapshot-->
+  <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
+
+ <!--The buttons to turn on/off the face detection-->
+  <button id="TurnOffFD">Turn off face detection</button>
+  <button id="TurnOnFD">Turn on face detection</button>
+
+ 
 </body>
+
 </html>
