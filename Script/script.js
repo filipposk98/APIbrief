@@ -1,6 +1,7 @@
 const video = document.getElementById('video')
 let stopV = document.getElementById("TurnOffFD")
 let startV = document.getElementById("TurnOnFD")
+let list = document.getElementById("list");
 let interval = "";
 const canvasElement = document.getElementById('canvas');
 const snapSoundElement = document.getElementById('snapSound');
@@ -115,7 +116,7 @@ function vidOff() {
         angry++;
           break;  
        case 'fearful':
-        afearful++;
+        fearful++;
           break;   
   }
   })
@@ -127,6 +128,15 @@ function vidOff() {
   console.log(happy, "happy");
   console.log(neutral, "neutral");
   console.log(highValus);
+
+  list.innerHTML = `<li>Neutral: ${neutral}</li>
+                    <li>Happy: ${happy}</li>
+                    <li>Sad: ${sad}</li>
+                    <li>Suprised: ${surprised}</li>
+                    <li>Disgusted: ${disgusted}</li>
+                    <li>Angry: ${angry}</li>
+                    <li>Fearful: ${fearful}</li>`;
+
   
 }
 
