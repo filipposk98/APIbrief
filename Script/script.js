@@ -129,13 +129,14 @@ function vidOff() {
   console.log(neutral, "neutral");
   console.log(highValus);
 
-  list.innerHTML = `<li>Neutral: ${neutral}</li>
-                    <li>Happy: ${happy}</li>
-                    <li>Sad: ${sad}</li>
-                    <li>Suprised: ${surprised}</li>
-                    <li>Disgusted: ${disgusted}</li>
-                    <li>Angry: ${angry}</li>
-                    <li>Fearful: ${fearful}</li>`;
+  list.innerHTML = 
+   `<li>Neutral: ${neutral}</li>
+    <li>Happy: ${happy}</li>
+    <li>Sad: ${sad}</li>
+    <li>Suprised: ${surprised}</li>
+    <li>Disgusted: ${disgusted}</li>
+    <li>Angry: ${angry}</li>
+    <li>Fearful: ${fearful}</li>`;
 
   
 }
