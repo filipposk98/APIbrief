@@ -1,8 +1,8 @@
 const video = document.getElementById('video')
-const video2 = document.getElementById("video2")
+const video2 = document.getElementById('video2')
+let stopV = document.getElementById("choice2")
+let startV = document.getElementById("choice1")
 let videoArray = [video, video2];
-let stopV = document.getElementById("TurnOffFD")
-let startV = document.getElementById("TurnOnFD")
 let list1 = document.getElementById("list1");
 let list2 = document.getElementById("list2");
 let list3 = document.getElementById("list3");
@@ -93,7 +93,10 @@ function faceDetection() {
     const canvas = faceapi.createCanvasFromMedia(videoArray[0])
     const canvas2 = faceapi.createCanvasFromMedia(videoArray[1])
     document.body.append(canvas)
+    canvas2.classList.add("canvas2");
     document.body.append(canvas2)
+    
+    console.log(canvas, canvas2)
     const displaySize = { width: videoArray[0].width, height: videoArray[0].height }
     const displaySize2 = { width: videoArray[1].width, height: videoArray[1].height }
     faceapi.matchDimensions(canvas, displaySize)
@@ -488,3 +491,39 @@ function expressionsCalc() {
  
   persentageCalcul() 
 }
+
+
+const st = {};
+
+st.flap = document.querySelector('#flap');
+st.toggle = document.querySelector('.toggle');
+
+st.choice1 = document.querySelector('#choice1');
+st.choice2 = document.querySelector('#choice2');
+
+st.flap.addEventListener('transitionend', () => {
+
+    if (st.choice1.checked) {
+        st.toggle.style.transform = 'rotateY(-15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    } else {
+        st.toggle.style.transform = 'rotateY(15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    }
+
+})
+
+st.clickHandler = (e) => {
+
+    if (e.target.tagName === 'LABEL') {
+        setTimeout(() => {
+            st.flap.children[0].textContent = e.target.textContent;
+        }, 250);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    st.flap.children[0].textContent = st.choice2.nextElementSibling.textContent;
+});
+
+document.addEventListener('click', (e) => st.clickHandler(e));

@@ -5,96 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-<!--Snapshot link-->
-  <!-- <script  type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script> -->
+  <script src="https://kit.fontawesome.com/44e4697a18.js" crossorigin="anonymous"></script>
+                
+  <link rel="stylesheet" href="Styles/main.css">
 
-  <script defer src="face-api.min.js"></script> 
- 
-   <script defer src="Script/script.js"></script>
+ <script defer src="face-api.min.js"></script> 
+  <script defer src="Script/script.js"></script>
   
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: aqua;
-    }
-    .videos {
-      position: relative;
-      margin-right: 100px;
-    }
   
-
-    canvas {
-      position: absolute;
-     
-    }
-
-    button {
-      position: relative;
-      top: 25rem;
-      right: 25rem;
-    }
-  </style>
+  
  
 </head>
 <body>
-  <div class="videos">
-  <video id="video" width="300" height="300" autoplay muted></video>
-  <video id="video2" width="300" height="300" autoplay muted></video>
-  </div>
-  <!-- <canvas id="canvas" class="d-none"></canvas> -->
- <!--for the snapshot-->
-  <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
 
- <!--The buttons to turn on/off the face detection-->
- <button id="startEvaluationBtn">Start Evaluation</button>
-  <button id="TurnOffFD">Turn off face detection</button>
-  <button id="TurnOnFD">Turn on face detection</button>
+<section>
+  <video id="video" width="600" height="390" autoplay muted></video>
+  <video id="video2" width="600" height="390" autoplay muted></video>
+  <!-- <canvas id="canvas" class="d-none"></canvas>
+  <canvas id="canvas2" class="d-none"></canvas> -->
+  
 
-<div id="listOfVideo">
-  <h1>List 1:</h1>
-  <ul id="list1">
+<!-- <div class="buttonholder"> -->
+  <!--The buttons to turn on/off the face detection-->
+
+  <button id="startEvaluationBtn">Start Evaluation</button>
+
+<!--The buttons to turn on/off the Web Cam-->
+  <div class="container">
+
+    <form class="toggle">
+
+        <input type="radio" id="choice1" name="choice" value="creative">
+        <label for="choice1">On</label>
+
+        <input type="radio" id="choice2" name="choice" value="productive">
+        <label for="choice2">Off</label>
+
+        <div id="flap"><span class="content"></span></div>
+
+    </form>
+
+</div>
+
+<!-- </div> -->
+  
+<!-- <button id="TurnOffFD">Turn off face detection</button>
+  <button id="TurnOnFD">Turn on face detection</button> -->
+
+  <!-- List of face detaction data -->
  
-  </ul>
+  <div class="containeraccor">
+    <div  class="accordion" id="accordion-start">
+        <div class="accordion-item" id="question1">
+            <a class="accordion-link" href="#question1">
+            Evaluation Log 
+            
+            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="answer">
+                  <ul id="list1">
+                  </ul>
+                 <ul id="list2">
+                  </ul>
+                 <ul id="list3">
+                  </ul>
+                 <ul id="list4">
+                  </ul>
+                </div>
+        </div>
+    </div>
+  </div>
 
-  <ul id="list2">
-
-  </ul>
-
-  <ul id="list3">
-
-  </ul>
-
-  <ul id="list4">
-
-  </ul>
-</div>
-
-<!--List for the second video-->
-<div id="listOfVideo2">
-  <h1>List 2:</h1>
-  <ul id="list5">
-
-  </ul>
-
-  <ul id="list6">
-
-  </ul>
-
-  <ul id="list7">
-
-  </ul>
-
-  <ul id="list8">
-
-  </ul>
-</div>
-
+  <div class="containeraccor" id="containeraccor2">
+    <div  class="accordion" id="accordion-start2">
+        <div class="accordion-item" id="question2">
+            <a class="accordion-link" href="#question2">
+            Evaluation Log 
+            
+            <i class="fas fa-chevron-up"></i>
+            <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="answer">
+                  <ul id="list5">
+                  </ul>
+                 <ul id="list6">
+                  </ul>
+                 <ul id="list7">
+                  </ul>
+                 <ul id="list8">
+                  </ul>
+                </div>
+        </div>
+    </div>
+  </div>
+  
+  </section>
 </body>
 
 </html>
