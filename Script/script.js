@@ -1,10 +1,17 @@
 const video = document.getElementById('video')
+const video2 = document.getElementById("video2")
+let videoArray = [video, video2];
 let stopV = document.getElementById("TurnOffFD")
 let startV = document.getElementById("TurnOnFD")
 let list1 = document.getElementById("list1");
 let list2 = document.getElementById("list2");
 let list3 = document.getElementById("list3");
 let list4 = document.getElementById("list4");
+//lists for video2
+let list5 = document.getElementById("list5");
+let list6 = document.getElementById("list6");
+let list7 = document.getElementById("list7");
+let list8 = document.getElementById("list8");
 const startEvaluationBtn = document.getElementById("startEvaluationBtn");
 let interval = "";
 const canvasElement = document.getElementById('canvas');
@@ -18,6 +25,14 @@ let disgusted = 0;
 let angry = 0;
 let fearful = 0;
 let highValus =[] ;
+let neutral2 = 0;
+let happy2 = 0;
+let sad2 = 0;
+let surprised2 = 0;
+let disgusted2 = 0;
+let angry2 = 0;
+let fearful2 = 0;
+let highValus2 = [];
 let iteration =0;
 
 
@@ -44,13 +59,14 @@ function startVideo() {
   //   happy = 0;
   // }
     //timeStop = false;
+    for (let i=0; i<videoArray.length; i++){
     navigator.getUserMedia(
     { video: {} },
-    stream => video.srcObject = stream,
+    stream => videoArray[i].srcObject = stream,
     err => console.error(err),
     console.log("Cam Turn On")
-    
-  )
+    )
+  }
 }
 startV.addEventListener("click", startVideo) 
 
@@ -64,26 +80,60 @@ function faceDetection() {
   disgusted = 0;
   angry = 0;
   fearful = 0;
-    const canvas = faceapi.createCanvasFromMedia(video)
+
+  neutral2 = 0;
+  happy2 = 0;
+  sad2 = 0;
+  surprised2 = 0;
+  disgusted2 = 0;
+  angry2 = 0;
+  fearful2 = 0;
+  
+    
+    const canvas = faceapi.createCanvasFromMedia(videoArray[0])
+    const canvas2 = faceapi.createCanvasFromMedia(videoArray[1])
     document.body.append(canvas)
-    const displaySize = { width: video.width, height: video.height }
+    document.body.append(canvas2)
+    const displaySize = { width: videoArray[0].width, height: videoArray[0].height }
+    const displaySize2 = { width: videoArray[1].width, height: videoArray[1].height }
     faceapi.matchDimensions(canvas, displaySize)
+    faceapi.matchDimensions(canvas2, displaySize2)
      var interval = setInterval(async () => {
        if  (! timeStop) {
       console.log(timeStop)
-      const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+
+      const detections = await faceapi.detectAllFaces(videoArray[0], new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+
+      const detections2 = await faceapi.detectAllFaces(videoArray[1], new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+
       const resizedDetections = faceapi.resizeResults(detections, displaySize)
-      console.log(resizedDetections[0].expressions)
+      //console.log(resizedDetections[0].expressions)
+
+      const resizedDetections2 = faceapi.resizeResults(detections2, displaySize2)
+      //console.log(resizedDetections[0].expressions)
+
       const sorted = Object.entries(resizedDetections[0].expressions).sort(([,a],[,b]) => a-b);
+      const sorted2 = Object.entries(resizedDetections2[0].expressions).sort(([,a],[,b]) => a-b);
       console.log(sorted[6][0]);
+
       highValus.push (sorted[6][0]);
+      highValus2.push (sorted2[6][0]);
+      console.log(highValus2);
       canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+      canvas2.getContext('2d').clearRect(0, 0, canvas2.width, canvas2.height)
+
       faceapi.draw.drawDetections(canvas, resizedDetections)
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-      faceapi.draw.drawFaceExpressions(canvas, resizedDetections)}
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+
+      faceapi.draw.drawDetections(canvas2, resizedDetections2)
+      faceapi.draw.drawFaceLandmarks(canvas2, resizedDetections2)
+      faceapi.draw.drawFaceExpressions(canvas2, resizedDetections2)
+    }
     }, 300)
-  
-  }
+     
+}
+
 
 
 
@@ -97,38 +147,42 @@ function faceDetection() {
 
 // Stops the function when we say to stop it
 function vidOff() {
+
+  for (let i=0; i<videoArray.length; i++){
   timeStop = true;
-  video.pause();
-  video.src = "";
-  let stream = video.srcObject;
+  videoArray[i].pause();
+  videoArray[i].src = "";
+  let stream = videoArray[i].srcObject;
   stream.getTracks()[0].stop();
-  console.log("Vid off");
-  // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-  highValus.forEach(element => {
-    switch(element) {
-      case 'neutral':
-        neutral++;
-          break;
-      case 'happy':
-        happy++;
-          break;
-      case 'sad':
-        sad++;
-          break;
-      case 'surprised':
-        surprised++;
-          break;
-      case 'disgusted':
-        disgusted++;
-          break;
-      case 'angry':
-        angry++;
-          break;  
-       case 'fearful':
-        fearful++;
-          break;   
   }
-  })
+  console.log("Vid off");
+
+  // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+  // highValus.forEach(element => {
+  //   switch(element) {
+  //     case 'neutral':
+  //       neutral++;
+  //         break;
+  //     case 'happy':
+  //       happy++;
+  //         break;
+  //     case 'sad':
+  //       sad++;
+  //         break;
+  //     case 'surprised':
+  //       surprised++;
+  //         break;
+  //     case 'disgusted':
+  //       disgusted++;
+  //         break;
+  //     case 'angry':
+  //       angry++;
+  //         break;  
+  //      case 'fearful':
+  //       fearful++;
+  //         break;   
+  // }
+  // })
   console.log(fearful, "fearful");
   console.log(angry, "angry");
   console.log(disgusted, "disgusted");
@@ -169,6 +223,31 @@ function persentageCalcul() {
  let persentageDesgusted= Math.round((disgusted / highValus.length) * 100);
  console.log(persentageDesgusted);
 
+
+//Persentage for second array
+ let persentageHappy2 = Math.round((happy2 / highValus2.length) * 100);
+ console.log(persentageHappy2);
+ console.log(highValus2.length);
+
+ let persentageNuetral2 = Math.round((neutral2 / highValus2.length) * 100);
+ console.log(persentageNuetral2);
+
+ let persentageSad2 = Math.round((sad / highValus2.length) * 100);
+ console.log(persentageSad2);
+
+ let persentageSurprised2 = Math.round((surprised2 / highValus2.length) * 100);
+ console.log(persentageSurprised2);
+
+ let persentageAngry2 = Math.round((angry2 / highValus2.length) * 100);
+ console.log(persentageAngry2);
+
+ let persentageFeraful2= Math.round((fearful2 / highValus2.length) * 100);
+ console.log(persentageFeraful2);
+
+ let persentageDesgusted2 = Math.round((disgusted2 / highValus2.length) * 100);
+ console.log(persentageDesgusted2);
+
+
  if (iteration === 3 ) {
  list1.innerHTML = 
    `<li>Neutral: ${persentageNuetral}%</li>
@@ -185,6 +264,22 @@ function persentageCalcul() {
     persentageDesgusted = 0;
     persentageAngry = 0;
     persentageFeraful = 0;
+
+    list5.innerHTML = 
+    `<li>Neutral: ${persentageNuetral2}%</li>
+     <li>Happy: ${persentageHappy2}%</li>
+     <li>Sad: ${persentageSad2}%</li>
+     <li>Suprised: ${persentageSurprised2}%</li>
+     <li>Disgusted: ${persentageDesgusted2}%</li>
+     <li>Angry: ${persentageAngry2}%</li>
+     <li>Fearful: ${persentageFeraful2}%</li>`;
+     persentageNuetral2 = 0;
+     persentageHappy2 = 0;
+     persentageSad2 = 0;
+     persentageSurprised2 = 0;
+     persentageDesgusted2 = 0;
+     persentageAngry2 = 0;
+     persentageFeraful2 = 0;
 
 
 
@@ -205,6 +300,22 @@ function persentageCalcul() {
     persentageAngry = 0;
     persentageFeraful = 0;
 
+    list6.innerHTML = 
+    `<li>Neutral: ${persentageNuetral2}%</li>
+     <li>Happy: ${persentageHappy2}%</li>
+     <li>Sad: ${persentageSad2}%</li>
+     <li>Suprised: ${persentageSurprised2}%</li>
+     <li>Disgusted: ${persentageDesgusted2}%</li>
+     <li>Angry: ${persentageAngry2}%</li>
+     <li>Fearful: ${persentageFeraful2}%</li>`;
+     persentageNuetral2 = 0;
+     persentageHappy2 = 0;
+     persentageSad2 = 0;
+     persentageSurprised2 = 0;
+     persentageDesgusted2 = 0;
+     persentageAngry2 = 0;
+     persentageFeraful2 = 0;
+
  } else if(iteration === 5) {
     list3.innerHTML = 
    `<li>Neutral: ${persentageNuetral}%</li>
@@ -222,6 +333,22 @@ function persentageCalcul() {
     persentageAngry = 0;
     persentageFeraful = 0;
 
+    list7.innerHTML = 
+    `<li>Neutral: ${persentageNuetral2}%</li>
+     <li>Happy: ${persentageHappy2}%</li>
+     <li>Sad: ${persentageSad2}%</li>
+     <li>Suprised: ${persentageSurprised2}%</li>
+     <li>Disgusted: ${persentageDesgusted2}%</li>
+     <li>Angry: ${persentageAngry2}%</li>
+     <li>Fearful: ${persentageFeraful2}%</li>`;
+     persentageNuetral2 = 0;
+     persentageHappy2 = 0;
+     persentageSad2 = 0;
+     persentageSurprised2 = 0;
+     persentageDesgusted2 = 0;
+     persentageAngry2 = 0;
+     persentageFeraful2 = 0;
+
  } else if (iteration === 6) {
     list4.innerHTML = 
    `<li>Neutral: ${persentageNuetral}%</li>
@@ -238,6 +365,22 @@ function persentageCalcul() {
     persentageDesgusted = 0;
     persentageAngry = 0;
     persentageFeraful = 0;
+
+    list8.innerHTML = 
+    `<li>Neutral: ${persentageNuetral2}%</li>
+     <li>Happy: ${persentageHappy2}%</li>
+     <li>Sad: ${persentageSad2}%</li>
+     <li>Suprised: ${persentageSurprised2}%</li>
+     <li>Disgusted: ${persentageDesgusted2}%</li>
+     <li>Angry: ${persentageAngry2}%</li>
+     <li>Fearful: ${persentageFeraful2}%</li>`;
+     persentageNuetral2 = 0;
+     persentageHappy2 = 0;
+     persentageSad2 = 0;
+     persentageSurprised2 = 0;
+     persentageDesgusted2 = 0;
+     persentageAngry2 = 0;
+     persentageFeraful2 = 0;
  }
 }
 
@@ -308,6 +451,32 @@ function expressionsCalc() {
           break;   
   }
   })
+
+  highValus2.forEach(element => {
+    switch(element) {
+      case 'neutral':
+        neutral2++;
+          break;
+      case 'happy':
+        happy2++;
+          break;
+      case 'sad':
+        sad2++;
+          break;
+      case 'surprised':
+        surprised2++;
+          break;
+      case 'disgusted':
+        disgusted2++;
+          break;
+      case 'angry':
+        angry2++;
+          break;  
+       case 'fearful':
+        fearful2++;
+          break;   
+  }
+  })
   // console.log(fearful, "fearful");
   // console.log(angry, "angry");
   // console.log(disgusted, "disgusted");
@@ -319,5 +488,3 @@ function expressionsCalc() {
  
   persentageCalcul() 
 }
-
-

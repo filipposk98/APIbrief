@@ -11,6 +11,7 @@
   <script defer src="face-api.min.js"></script> 
  
    <script defer src="Script/script.js"></script>
+  
   <style>
     body {
       margin: 0;
@@ -22,10 +23,15 @@
       align-items: center;
       background-color: aqua;
     }
+    .videos {
+      position: relative;
+      margin-right: 100px;
+    }
+  
 
     canvas {
       position: absolute;
-      left: 12rem;
+     
     }
 
     button {
@@ -37,7 +43,10 @@
  
 </head>
 <body>
-  <video id="video" width="720" height="560" autoplay muted></video>
+  <div class="videos">
+  <video id="video" width="300" height="300" autoplay muted></video>
+  <video id="video2" width="300" height="300" autoplay muted></video>
+  </div>
   <!-- <canvas id="canvas" class="d-none"></canvas> -->
  <!--for the snapshot-->
   <!-- <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio> -->
@@ -46,9 +55,11 @@
  <button id="startEvaluationBtn">Start Evaluation</button>
   <button id="TurnOffFD">Turn off face detection</button>
   <button id="TurnOnFD">Turn on face detection</button>
-  
-  <ul id="list1">
 
+<div id="listOfVideo">
+  <h1>List 1:</h1>
+  <ul id="list1">
+ 
   </ul>
 
   <ul id="list2">
@@ -62,7 +73,28 @@
   <ul id="list4">
 
   </ul>
- 
+</div>
+
+<!--List for the second video-->
+<div id="listOfVideo2">
+  <h1>List 2:</h1>
+  <ul id="list5">
+
+  </ul>
+
+  <ul id="list6">
+
+  </ul>
+
+  <ul id="list7">
+
+  </ul>
+
+  <ul id="list8">
+
+  </ul>
+</div>
+
 </body>
 
 </html>
