@@ -17,25 +17,36 @@ body {
     width: 100%;
     height: 100%;
     grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    column-gap: 10px;
 
   }
 
   video {
+  margin-top: 5px;
   grid-column: 1;
   grid-row: 1/1;
 
   }
  
   #video2 {
+    margin-top: 5px;
       grid-column: 2/2;
   }
 
   canvas {
     position: absolute;
-    top: 9rem;
+    top: 1rem;
     left: 2.5rem;
     z-index: 1;
    
+  }
+
+  .canvas2 {
+    position: absolute;
+    top: 0rem;
+    left: 40rem;
+    z-index: 1;
+
   }
   
   /* .buttonholder {
@@ -92,6 +103,24 @@ body {
     grid-row: 2/3;
   }
   #list4 {
+    grid-column: 4/7;
+    grid-row: 2/3;
+  }
+  #list5 {
+    grid-column: 1/4;
+    grid-row: 1/2;
+  }
+
+  #list6 {
+    grid-column: 4/7;
+    grid-row: 1/2;
+  
+  }
+  #list7 {
+    grid-column: 1/4;
+    grid-row: 2/3;
+  }
+  #list8 {
     grid-column: 4/7;
     grid-row: 2/3;
   }
@@ -202,6 +231,16 @@ body {
     margin: 0 auto;
     /* padding: 0 1.5rem; */
     grid-column: 1;
+    grid-row: 3/span 4;
+
+}
+
+#containeraccor2{
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    /* padding: 0 1.5rem; */
+    grid-column: 2;
     grid-row: 3/span 4;
 
 }

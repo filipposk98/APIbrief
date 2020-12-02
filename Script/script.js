@@ -93,7 +93,10 @@ function faceDetection() {
     const canvas = faceapi.createCanvasFromMedia(videoArray[0])
     const canvas2 = faceapi.createCanvasFromMedia(videoArray[1])
     document.body.append(canvas)
+    canvas2.classList.add("canvas2");
     document.body.append(canvas2)
+    
+    console.log(canvas, canvas2)
     const displaySize = { width: videoArray[0].width, height: videoArray[0].height }
     const displaySize2 = { width: videoArray[1].width, height: videoArray[1].height }
     faceapi.matchDimensions(canvas, displaySize)
