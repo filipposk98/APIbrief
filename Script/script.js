@@ -1,6 +1,7 @@
 const video = document.getElementById('video')
-let stopV = document.getElementById("TurnOffFD")
-let startV = document.getElementById("TurnOnFD")
+const video2 = document.getElementById('video2')
+let stopV = document.getElementById("choice2")
+let startV = document.getElementById("choice1")
 let list1 = document.getElementById("list1");
 let list2 = document.getElementById("list2");
 let list3 = document.getElementById("list3");
@@ -45,8 +46,9 @@ function startVideo() {
   // }
     //timeStop = false;
     navigator.getUserMedia(
-    { video: {} },
+    { video: {}, video2:{} },
     stream => video.srcObject = stream,
+    stream => video2.srcObject = stream,
     err => console.error(err),
     console.log("Cam Turn On")
     
@@ -64,7 +66,8 @@ function faceDetection() {
   disgusted = 0;
   angry = 0;
   fearful = 0;
-    const canvas = faceapi.createCanvasFromMedia(video)
+  // highValus =[] ;
+    const canvas = faceapi.createCanvasFromMedia(video,)
     document.body.append(canvas)
     const displaySize = { width: video.width, height: video.height }
     faceapi.matchDimensions(canvas, displaySize)
@@ -321,3 +324,37 @@ function expressionsCalc() {
 }
 
 
+const st = {};
+
+st.flap = document.querySelector('#flap');
+st.toggle = document.querySelector('.toggle');
+
+st.choice1 = document.querySelector('#choice1');
+st.choice2 = document.querySelector('#choice2');
+
+st.flap.addEventListener('transitionend', () => {
+
+    if (st.choice1.checked) {
+        st.toggle.style.transform = 'rotateY(-15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    } else {
+        st.toggle.style.transform = 'rotateY(15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    }
+
+})
+
+st.clickHandler = (e) => {
+
+    if (e.target.tagName === 'LABEL') {
+        setTimeout(() => {
+            st.flap.children[0].textContent = e.target.textContent;
+        }, 250);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    st.flap.children[0].textContent = st.choice2.nextElementSibling.textContent;
+});
+
+document.addEventListener('click', (e) => st.clickHandler(e));
